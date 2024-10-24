@@ -1,4 +1,4 @@
-import SenhaCripto from "../../app/portas/SenhaCripto"
+import SenhaCripto from "../../app/usuario/SenhaCripto"
 
 export  default class InverterSenha implements SenhaCripto{
 

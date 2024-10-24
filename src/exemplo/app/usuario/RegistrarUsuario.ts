@@ -1,23 +1,29 @@
-import Colecao from "../portas/Colecao"
-import SenhaCripto from "../portas/SenhaCripto"
+
+import SenhaCripto from "./SenhaCripto"
+import ColecaoUsuario from "./ColecaoUsuario"
 import Usuario from "./Usuario"
+import Id from "../shared/id"
 
 export default class RegistrarUsuario{
 
     constructor(
-        private colecao: Colecao,
+        private colecao: ColecaoUsuario,
         private InverterSenha: SenhaCripto
 
     ){
 
     }
 
-    executar(nome: string, email: string, senha: string): Usuario {
+    async executar(nome: string, email: string, senha: string): Promise<Usuario> {
 
         const senhaCripto = this.InverterSenha.cripito(senha)
+
+        const usuarioExistente = await this.colecao.bucarPorEmail(email)
+
+        if(usuarioExistente) throw new Error('usuario existente')
  
         const usuario: Usuario = {
-            id: `${Math.random()}`,
+            id: Id.gerar(),
             nome,
             email,
             senha: senhaCripto

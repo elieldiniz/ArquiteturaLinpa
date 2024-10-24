@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt"
-import SenhaCripto from "../../app/portas/SenhaCripto";
+import SenhaCripto from "../../app/usuario/SenhaCripto";
 
 export default class CriptoReal implements SenhaCripto {
     cripito(item: any) {
