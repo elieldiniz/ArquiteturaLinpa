@@ -1,10 +1,10 @@
-import ColecaoUsuario from '../src/exemplo/app/usuario/ColecaoUsuario'
-import RegistrarUsuario from '../src/exemplo/app/usuario/RegistrarUsuario'
-import ColecaoUsuarioDB from '../src/exemplo/adaptadores/db/knex/ColecaoUsuarioDB'
-import UsuarioEmMemoria from '../src/exemplo/adaptadores/db/UsuarioEmMemoria'
-import SenhaCripto from '../src/exemplo/app/usuario/SenhaCripto'
-import InverterSenha from '../src/exemplo/adaptadores/auth/inverterSenha'
-import CriptoReal from '../src/exemplo/adaptadores/auth/CriptoReal'
+import ColecaoUsuario from '../src/core/usuario/ColecaoUsuario'
+import RegistrarUsuario from '../src/core/usuario/RegistrarUsuario'
+import ColecaoUsuarioDB from '../src/adaptadores/db/knex/ColecaoUsuarioDB'
+import UsuarioEmMemoria from '../src/adaptadores/db/UsuarioEmMemoria'
+import SenhaCripto from '../src/core/usuario/SenhaCripto'
+import InverterSenha from '../src/adaptadores/auth/inverterSenha'
+import CriptoReal from '../src/adaptadores/auth/CriptoReal'
 
 test('Deve registrar um usuario', async  ()=>{
     const colecao: ColecaoUsuario = new UsuarioEmMemoria()
@@ -33,7 +33,7 @@ test('Deve registrar um usuario com senha cripitografada',async ()=>{
 })
 
 
-test('Deve lansar erro ao cadstra usuario ja cadastrado',async ()=>{
+test('Deve lansar erro ao cadastra usuario ja cadastrado',async ()=>{
     const colecao: ColecaoUsuario = new UsuarioEmMemoria()
     const senhaCripito1 : SenhaCripto = new CriptoReal()
     const casoDeUso = new RegistrarUsuario(colecao,senhaCripito1)

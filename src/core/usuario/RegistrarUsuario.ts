@@ -5,6 +5,9 @@ import Usuario from "./Usuario"
 import Id from "../shared/id"
 
 export default class RegistrarUsuario{
+    static executa(name: any, email: any, senha: any) {
+        throw new Error("Method not implemented.")
+    }
 
     constructor(
         private colecao: ColecaoUsuario,
