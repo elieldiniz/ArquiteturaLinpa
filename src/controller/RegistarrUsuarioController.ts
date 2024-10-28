@@ -1,20 +1,29 @@
-import { send } from "process";
+import { Express } from "express";
 import RegistrarUsuario from "../core/usuario/RegistrarUsuario";
-import  {Express}   from "express";
 
-
-export default class functionRegistarUsuarioController {
-    constructor(private servidor: Express,
+export default class RegistrarUsuarioController {
+    constructor(
+        private servidor: Express,
         private registrarUsuarioUseCase: RegistrarUsuario
-    ){
-        servidor.post('/registrar', async (req,res) =>{
-            await RegistrarUsuario.executa(
-                req.body.name,
-                req.body.email,
-                req.body.senha,
-            )
+    ) {
+        this.setupRoutes();
+    }
 
-            res.status(201).send()
-        })
-       }   
+    private setupRoutes() {
+        this.servidor.post('/registrar', async (req, res) => {
+            try {
+                await this.registrarUsuarioUseCase.executar(
+                    {
+                        nome: req.body.nome,
+                        email: req.body.email,
+                        senha: req.body.senha
+                    }
+                );
+                res.status(201).send();
+            } catch (error) {
+                console.error("Erro ao registrar usuário:", error);
+                res.status(500).send({ error: "Erro ao registrar usuário" });
+            }
+        });
+    }
 }

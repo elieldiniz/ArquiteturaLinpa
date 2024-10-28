@@ -1,10 +1,10 @@
-import ColecaoUsuario from '../src/core/usuario/ColecaoUsuario'
-import RegistrarUsuario from '../src/core/usuario/RegistrarUsuario'
-import ColecaoUsuarioDB from '../src/adaptadores/db/knex/ColecaoUsuarioDB'
-import UsuarioEmMemoria from '../src/adaptadores/db/UsuarioEmMemoria'
-import SenhaCripto from '../src/core/usuario/SenhaCripto'
-import InverterSenha from '../src/adaptadores/auth/inverterSenha'
-import CriptoReal from '../src/adaptadores/auth/CriptoReal'
+import ColecaoUsuario from '../../src/core/usuario/ColecaoUsuario'
+import RegistrarUsuario from '../../src/core/usuario/RegistrarUsuario'
+import ColecaoUsuarioDB from '../../src/adaptadores/db/knex/ColecaoUsuarioDB'
+import UsuarioEmMemoria from '../../src/adaptadores/db/UsuarioEmMemoria'
+import SenhaCripto from '../../src/core/usuario/SenhaCripto'
+import InverterSenha from '../../src/adaptadores/auth/inverterSenha'
+import CriptoReal from '../../src/adaptadores/auth/CriptoReal'
 
 test('Deve registrar um usuario', async  ()=>{
     const colecao: ColecaoUsuario = new UsuarioEmMemoria()
