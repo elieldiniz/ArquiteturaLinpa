@@ -14,13 +14,14 @@ export default class LoginUsuarioController {
         this.servidor.post('/login', async (req, res) => {
             try {
                 const usuario = await this.Login.executar(
-                    req.body.email,
-                    req.body.senha
+                  {
+                    email: req.body.email,
+                    senha: req.body.senha
+                  }
                 );
                 res.status(200).json({
-                    id: usuario.id,
-                    nome: usuario.nome,
-                    email: usuario.email
+                    usuario: usuario.usuario,
+                    token: usuario.token
                 })
 
             } catch (error) {

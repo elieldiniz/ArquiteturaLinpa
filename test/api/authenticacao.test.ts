@@ -29,7 +29,8 @@ test("Deve logar com email e senha Corretos",async ()=>{
 
     const resp = await axios.post(`${baseUrl}/login`,usuario)
     expect(resp.status).toBe(200)
-    expect(resp.data.nome).toBe("eliel")
-    expect(resp.data.email).toBe("elieldini@gamil.com")
+    expect(resp.data.usuario.nome).toBe("eliel")
+    expect(resp.data.usuario.email).toBe("elieldini@gamil.com")
+    expect(resp.data).toHaveProperty('token')
 
 })

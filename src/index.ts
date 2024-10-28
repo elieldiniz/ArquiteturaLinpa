@@ -2,10 +2,11 @@ import dotenv from "dotenv"
 import RegistrarUsuarioControler from "./controller/RegistarrUsuarioController"
 import  express from "express";
 import ColecaoUsuarioDB from "./adaptadores/db/knex/ColecaoUsuarioDB";
-import CriptoReal from "./adaptadores/auth/CriptoReal";
+import CriptoReal from "./adaptadores/auth/BcryptAdapter";
 import RegistrarUsuario from "./core/usuario/RegistrarUsuario";
 import LoginUsuario from "./core/usuario/LoginUsuario";
 import LoginUsuarioController from "./controller/LoginUsuarioController";
+import JwtAdapter from "./adaptadores/auth/JwtAdaptar";
 
 
 
@@ -20,13 +21,13 @@ app.listen(PORT,()=>{
 })
 
 // ------------------------------- Rotas abertas
-
+const provedorToken = new JwtAdapter(process.env.JWT_Secret!)
 const colecaoUsuario = new ColecaoUsuarioDB()
 const ProvedorCripto = new CriptoReal()
 
 
 const registrarUsuario = new RegistrarUsuario(colecaoUsuario, ProvedorCripto)
-const loginUsuario = new LoginUsuario(colecaoUsuario,ProvedorCripto)
+const loginUsuario = new LoginUsuario(colecaoUsuario,ProvedorCripto,provedorToken)
 new RegistrarUsuarioControler(app, registrarUsuario)
 new LoginUsuarioController(app, loginUsuario)
 

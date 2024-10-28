@@ -8,9 +8,6 @@ import CasoDeUso from "../shared/CasoDeUso"
 export type Entrada = {nome: string, email: string, senha: string}
 
 export default class RegistrarUsuario implements CasoDeUso<Entrada,Usuario>{
-    static executa(name: any, email: any, senha: any) {
-        throw new Error("Method not implemented.")
-    }
 
     constructor(
         private colecao: ColecaoUsuario,
