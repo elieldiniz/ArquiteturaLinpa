@@ -21,7 +21,7 @@ app.listen(PORT,()=>{
 })
 
 // ------------------------------- Rotas abertas
-const provedorToken = new JwtAdapter(process.env.JWT_Secret!)
+const provedorToken = new JwtAdapter(process.env.SEGREDO!)
 const colecaoUsuario = new ColecaoUsuarioDB()
 const ProvedorCripto = new CriptoReal()
 

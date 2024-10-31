@@ -1,5 +1,4 @@
 import { Express } from "express";
-import RegistrarUsuario from "../core/usuario/RegistrarUsuario";
 import LoginUsuario from "../core/usuario/LoginUsuario";
 
 export default class LoginUsuarioController {

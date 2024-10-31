@@ -42,7 +42,7 @@ test('Deve lançar erro ao cadastrar um usuário já cadastrado', async () => {
 
     await casoDeUso.executar(dadosUsuario)
 
-    await expect(casoDeUso.executar(dadosUsuario)).rejects.toThrow('usuário existente')
+    await expect(casoDeUso.executar(dadosUsuario)).rejects.toThrow('usuario existente')
 })
 
 test.skip('Deve registrar um usuário no banco de dados (não executa automaticamente)', async () => {

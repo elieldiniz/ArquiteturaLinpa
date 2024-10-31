@@ -25,11 +25,13 @@ export default class LoginUsuario implements CasoDeUso<Entrada, Saida>{
 
         const usuarioExistente = await this.colecao.bucarPorEmail(dto.email)
 
+        console.log(usuarioExistente)
+
         if(!usuarioExistente) throw new Error('usuario inexistente')
 
-        const mesmaSenha = this.provedorSenha.comparar(
-            dto.senha,
-            usuarioExistente.senha!
+        const mesmaSenha = await this.provedorSenha.comparar(
+                dto.senha,
+                usuarioExistente.senha!
         )
 
         if(!mesmaSenha) throw new Error('senha invalida')
