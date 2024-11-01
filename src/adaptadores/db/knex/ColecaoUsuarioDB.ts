@@ -8,7 +8,6 @@ export default class ColecaoUsuarioDB implements ColecaoUsuario {
     }
 
     async bucarPorEmail(email: string): Promise<Usuario | null> {
-        const usuario = await conexao.table('usuarios').where({ email }).first()
-        return usuario ?? null
+     return conexao.table('usuarios').where('email', email).first()
     }
 }

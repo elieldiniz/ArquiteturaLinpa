@@ -19,7 +19,7 @@ export default class RegistrarUsuario implements CasoDeUso<Entrada,Usuario>{
 
     async executar(dto: Entrada): Promise<Usuario> {
 
-        const senhaCripto = this.InverterSenha.cripito(dto.senha)
+        const senhaCripto = this.InverterSenha.criptografar(dto.senha)
 
         const usuarioExistente = await this.colecao.bucarPorEmail(dto.email)
 

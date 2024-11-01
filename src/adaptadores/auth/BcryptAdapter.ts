@@ -1,13 +1,13 @@
-import bcrypt from "bcrypt"
-import SenhaCripto from "../../core/usuario/SenhaCripto";
+import bcrypt from 'bcrypt'
+import ProvedorCriptografia from '../../core/usuario/SenhaCripto';
 
-export default class CriptoReal implements SenhaCripto {
-    cripito(item: any) {
+export default class BcryptAdapter implements ProvedorCriptografia {
+    criptografar(senha: string): string {
         const salt = bcrypt.genSaltSync(10)
-        return bcrypt.hashSync(item, salt)
+        return bcrypt.hashSync(senha, salt)
     }
-    comparar(senha: string, senhaCriptografada: string) {
-       return bcrypt.compare(senha, senhaCriptografada)
+
+    async comparar(senha: string, senhaCriptografada: string): Promise<boolean> {
+        return await bcrypt.compare(senha, senhaCriptografada);
     }
-  
 }

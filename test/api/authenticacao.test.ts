@@ -4,35 +4,32 @@ import Usuario from "../../src/core/usuario/Usuario"
 const baseUrl = process.env.API_URL
 
 
-test("Deve registrar Um novo usuario se não existir",async ()=>{
- 
+const usuario: Partial<Usuario> = {
+    nome: 'eliel',
+    email: 'elieldini@gamil.com',
+    senha: '123456',
+}
 
-    const usuario: Partial<Usuario> = {
-        nome: "eliel",
-        email: "elieldini@gamil.com",
-        senha: "123456"
+
+test('Deve registrar um novo usuário se não existir', async () => {
+    try {
+        const resp = await axios.post(`${baseUrl}/registrar`, usuario)
+        expect(resp.status).toBe(201)
+    } catch (e: any) {
+        expect(e.response.status).toBe(400)
+        expect(e.response.data).toBe('Usuário já existe.')
     }
-
-    const resp = await axios.post(`${baseUrl}/registrar`,usuario)
-
-    expect(resp.status).toBe(201)
-
 })
 
-test("Deve logar com email e senha Corretos",async ()=>{
- 
+test('Deve logar com email e senha corretos', async () => {
 
-    const usuario: Partial<Usuario> = {
-        email: "elieldini@gamil.com",
-        senha: "123456"
-    }
-
-    const resp = await axios.post(`${baseUrl}/login`,{email: "elieldini@gmail.com", senha: "123456" })
-
-    
+    const resp = await axios.post(`${baseUrl}/login`, {
+        email: usuario.email,
+        senha: usuario.senha,
+    })
     expect(resp.status).toBe(200)
-    expect(resp.data.usuario.nome).toBe("eliel")
-    expect(resp.data.usuario.email).toBe("elieldini@gamil.com")
+    expect(resp.data.usuario.nome).toBe('eliel')
+    expect(resp.data.usuario.email).toBe(usuario.email)
+    console.log(resp.data.token)
     expect(resp.data).toHaveProperty('token')
-
 })

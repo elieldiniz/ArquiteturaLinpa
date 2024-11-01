@@ -1,30 +1,21 @@
-import { Express } from "express";
-import LoginUsuario from "../core/usuario/LoginUsuario";
+import { Express } from 'express'
+import LoginUsuario from '../core/usuario/LoginUsuario'
+import { compareSync } from 'bcrypt'
 
 export default class LoginUsuarioController {
     constructor(
         private servidor: Express,
-        private Login: LoginUsuario
+        private casoDeUso: LoginUsuario
     ) {
-        this.setupRoutes();
-    }
-
-    private setupRoutes() {
-        this.servidor.post('/login', async (req, res) => {
+        servidor.post('/login', async (req, res) => {
             try {
-                const usuario = await this.Login.executar(
-                  {
+                const resposta = await casoDeUso.executar({
                     email: req.body.email,
                     senha: req.body.senha
-                  }
-                );
-                res.status(200).json({
-                    usuario: usuario.usuario,
-                    token: usuario.token
                 })
-
-            } catch (error) {
-                res.status(403).send({ error: "Usuario Não encontrado" })
+                res.status(200).json(resposta)
+            } catch (err: any) {
+                res.status(403).send(err.message)
             }
         })
     }
