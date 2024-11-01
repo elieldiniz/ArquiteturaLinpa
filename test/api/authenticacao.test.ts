@@ -27,9 +27,8 @@ test("Deve logar com email e senha Corretos",async ()=>{
         senha: "123456"
     }
 
-    const resp = await axios.post(`${baseUrl}/login`,usuario)
+    const resp = await axios.post(`${baseUrl}/login`,{email: "elieldini@gmail.com", senha: "123456" })
 
-    console.log(resp.status)
     
     expect(resp.status).toBe(200)
     expect(resp.data.usuario.nome).toBe("eliel")
