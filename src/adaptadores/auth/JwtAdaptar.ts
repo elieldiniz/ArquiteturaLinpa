@@ -7,7 +7,7 @@ export default class JwtAdapter implements ProvedorToken{
 
     }
     gerarToken(payload: string | object ): string{
-       return jwt.sign(payload, this.segredo, {expiresIn: 'id'})
+       return jwt.sign(payload, this.segredo, {expiresIn: '1d'})
     }
 
     validarToken(token: string): string | object {

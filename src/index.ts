@@ -1,6 +1,7 @@
-import dotenv from "dotenv"
+import dotenv from 'dotenv'
+dotenv.config()
 
-import  express from "express";
+import express from "express";
 import ColecaoUsuarioDB from "./adaptadores/db/knex/ColecaoUsuarioDB";
 import RegistrarUsuario from "./core/usuario/RegistrarUsuario";
 import LoginUsuario from "./core/usuario/LoginUsuario";
@@ -9,9 +10,6 @@ import JwtAdapter from "./adaptadores/auth/JwtAdaptar";
 import BcryptAdapter from "./adaptadores/auth/BcryptAdapter";
 import RegistrarUsuarioController from "./controller/RegistarrUsuarioController";
 
-
-
-dotenv.config()
 const app = express();
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -21,8 +19,11 @@ app.listen(PORT,()=>{
     console.log("Servidor rodando na porta 3001")
 })
 
+const SECRET = process.env.SEGREDO
+
+console.log("SECRET")
 // ------------------------------- Rotas abertas
-const provedorToken = new JwtAdapter(process.env.JWT_SECRET!)
+const provedorToken = new JwtAdapter(SECRET!)
 const provedorCripto = new BcryptAdapter()
 const colecaoUsuario = new ColecaoUsuarioDB()
 

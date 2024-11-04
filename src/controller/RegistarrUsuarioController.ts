@@ -11,6 +11,8 @@ export default class RegistrarUsuarioController {
 
     private setupRoutes() {
         this.servidor.post('/registrar', async (req, res) => {
+
+            console.log(req.params)
             try {
                 await this.registrarUsuarioUseCase.executar(
                     {

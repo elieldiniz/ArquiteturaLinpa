@@ -37,19 +37,22 @@ export default class LoginUsuario implements CasoDeUso<Entrada, Saida>{
 
         if(!mesmaSenha) throw new Error('senha invalida')
 
+            try {
+                return {
+                    usuario: { ...usuarioExistente, senha: undefined },
+                    token: this.ProvedorToken.gerarToken({
+                        id: usuarioExistente.id,
+                        nome: usuarioExistente.nome,
+                        email: usuarioExistente.email
+                    })
+                };
+            } catch (error) {
+                console.error("Erro ao gerar token:", error);
+                throw new Error("Não foi possível realizar o login. Tente novamente mais tarde.");
+            }
+            
 
-        return {
-            usuario: {...usuarioExistente, senha: undefined},
-            token: this.ProvedorToken.gerarToken(
-                {
-                    id: usuarioExistente.id,
-                    nome: usuarioExistente.nome,
-                    email: usuarioExistente.email
-                }
-            ) // Gerar um token JWT aqui e retornar na resposta
-        }
-
-        // Ao invés de retornar o usuario inteiro, podemos retornar apenas os dados necessarios
+    
   
     }
 }
