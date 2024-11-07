@@ -5,18 +5,19 @@ import UsuarioEmMemoria from '../../src/adaptadores/db/UsuarioEmMemoria'
 import SenhaCripto from '../../src/core/usuario/SenhaCripto'
 import InverterSenha from '../../src/adaptadores/auth/inverterSenha'
 import CriptoReal from '../../src/adaptadores/auth/BcryptAdapter'
+import usuarios from '../data/usuario'
 
 test('Deve registrar um usuário com senha invertida', async () => {
     const colecao: ColecaoUsuario = new UsuarioEmMemoria()
     const senhaCripto: SenhaCripto = new InverterSenha()
     const casoDeUso = new RegistrarUsuario(colecao, senhaCripto)
 
-    const usuario = await casoDeUso.executar({ nome: 'João da Silva', email: 'joao@jstad.com', senha: '12345' })
+    const usuario = await casoDeUso.executar({ nome: usuarios.completo.nome, email: usuarios.completo.email, senha: usuarios.completo.senha! })
 
     expect(usuario).toHaveProperty('id')
-    expect(usuario.nome).toBe('João da Silva')
-    expect(usuario.email).toBe('joao@jstad.com')
-    expect(usuario.senha).toBe('54321') // Senha deve estar invertida
+    expect(usuario.nome).toBe('eliel diniz')
+    expect(usuario.email).toBe('elieldiniz@gmail.com')
+    expect(usuario.senha).toBe('654321') // Senha deve estar invertida
 })
 
 test('Deve registrar um usuário com senha criptografada', async () => {
@@ -24,11 +25,11 @@ test('Deve registrar um usuário com senha criptografada', async () => {
     const senhaCripto: SenhaCripto = new CriptoReal()
     const casoDeUso = new RegistrarUsuario(colecao, senhaCripto)
 
-    const usuario = await casoDeUso.executar({ nome: 'João da Silva', email: 'joao@jstad.com', senha: '123456' })
+    const usuario = await casoDeUso.executar({ nome: usuarios.completo.nome, email: usuarios.completo.email, senha: usuarios.completo.senha! })
 
     expect(usuario).toHaveProperty('id')
-    expect(usuario.nome).toBe('João da Silva')
-    expect(usuario.email).toBe('joao@jstad.com')
+    expect(usuario.nome).toBe('eliel diniz')
+    expect(usuario.email).toBe('elieldiniz@gmail.com')
 
     expect(await senhaCripto.comparar('123456', usuario.senha!)).toBeTruthy()
 })
@@ -38,7 +39,7 @@ test('Deve lançar erro ao cadastrar um usuário já cadastrado', async () => {
     const senhaCripto: SenhaCripto = new CriptoReal()
     const casoDeUso = new RegistrarUsuario(colecao, senhaCripto)
 
-    const dadosUsuario = { nome: "Eliel", email: "elieldini@gmail.com", senha: "123456" }
+    const dadosUsuario = { nome: usuarios.completo.nome, email: usuarios.completo.email, senha: usuarios.completo.senha! }
 
     await casoDeUso.executar(dadosUsuario)
 
@@ -50,10 +51,10 @@ test.skip('Deve registrar um usuário no banco de dados (não executa automatica
     const senhaCripto = new CriptoReal()
     const casoDeUso = new RegistrarUsuario(colecao, senhaCripto)
 
-    const usuario = await casoDeUso.executar({ nome: 'João da Silva', email: 'joao@jstad.com', senha: '123456' })
-
+    const usuario = await casoDeUso.executar({ nome: usuarios.completo.nome, email: usuarios.completo.email, senha: usuarios.completo.senha! })
+    
     expect(usuario).toHaveProperty('id')
-    expect(usuario.nome).toBe('João da Silva')
-    expect(usuario.email).toBe('joao@jstad.com')
+    expect(usuario.nome).toBe('eliel diniz')
+    expect(usuario.email).toBe('elieldiniz@gmail.com')
     expect(await senhaCripto.comparar('123456', usuario.senha!)).toBeTruthy()
 })

@@ -9,6 +9,9 @@ import LoginUsuarioController from "./controller/LoginUsuarioController";
 import JwtAdapter from "./adaptadores/auth/JwtAdaptar";
 import BcryptAdapter from "./adaptadores/auth/BcryptAdapter";
 import RegistrarUsuarioController from "./controller/RegistarrUsuarioController";
+import SalvarTrasacao from './core/transacao/SalvarTrasacao';
+import SalvarTrasacaoController from './controller/SalvarTrasacaoController';
+import UsuarioMiddleware from './controller/UsuarioMiddleware';
 
 const app = express();
 app.use(express.json())
@@ -38,4 +41,7 @@ new RegistrarUsuarioController(app, registrarUsuario)
 new LoginUsuarioController(app, loginUsuario)
 
 //---------------------- Rotas autencticadas
+const usuarioMiddleware = UsuarioMiddleware(colecaoUsuario,provedorToken)
 
+const salvarTransacao = new SalvarTrasacao()
+new SalvarTrasacaoController(app, salvarTransacao,usuarioMiddleware)

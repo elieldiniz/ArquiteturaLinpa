@@ -1,9 +1,9 @@
 const dotenv = require('dotenv')
-dotenv.config({path:"../../../../.env_local"})
+dotenv.config({path:"../../../../.env"})
 
 module.exports = {
     client: "pg",
-    connection: "postgresql://postgres:minhasenha@localhost:5432/meu_banco",
+    connection: process.env.DB_URL,
     migrations: {
         tableName: "knex_migrations",
     },
