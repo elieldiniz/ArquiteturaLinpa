@@ -26,7 +26,7 @@ test('Deve registrar um novo usuário se não existir', async () => {
     }
 })
 
-test.skip('Deve logar com email e senha corretos', async () => {
+test('Deve logar com email e senha corretos', async () => {
 
     const resp = await axios.post(`${baseUrl}/login`, {
         email: usuarios.completo.email,
