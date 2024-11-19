@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "tsc",
-    "migrate:make": "knex migrate:make --knexfile ./src/adaptadores/db/knex/knexfile.ts --knexpath ./src/adaptadores/db/knex",
-    "migrate:down": "knex migrate:rollback --knexfile ./src/adaptadores/db/knex/knexfile.ts",
-    "migrate:up": "knex migrate:latest --knexfile ./src/adaptadores/db/knex/knexfile.ts ",
+    "migrate:make": "knex migrate:make --knexfile ./src/adaptadores/db/knexfile.ts --knexpath ./src/adaptadores/db/knex",
+    "migrate:down": "knex migrate:rollback --knexfile ./src/adaptadores/db/knexfile.ts",
+    "migrate:up": "knex migrate:latest --knexfile ./src/adaptadores/db/knexfile.ts ",
     "test": "jest"
   },
   "keywords": [],

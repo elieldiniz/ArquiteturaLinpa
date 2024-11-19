@@ -1,21 +1,34 @@
 import { Express, Request, Response } from 'express'
-import SalvarTrasacao from '../core/transacao/SalvarTrasacao'
+import SalvarTransacao from '../core/transacao/SalvarTrasacao'
 
-export default class SalvarTrasacaoController {
+
+export default class SalvarTransacaoController {
     constructor(
         private servidor: Express,
-        private casoDeUso: SalvarTrasacao,
-        ...middlewares: any[]
+        private casoDeUso: SalvarTransacao,
+        ...middleware: any[]
     ) {
-        const fn =  async (req: Request, res: Response) => {
+        const fn = async (req: Request, res: Response) => {
             try {
-                const resposta = await casoDeUso.executar()
-                res.status(200).json(resposta)
+                const transacao = {
+                    descricao: req.body.descricao,
+                    valor: +req.body.valor,
+                    vencimento: new Date(req.body.vencimento),
+                    idUsuario: req.body.idUsuario,
+                }
+
+                await casoDeUso.executar({
+                    transacao,
+                    id: req.params.id,
+                    usuario: (req as any).usuario,
+                })
+                res.status(200).send()
             } catch (err: any) {
-                res.status(403).send(err.message)
+                res.status(400).send(err.message)
             }
         }
 
-        servidor.post('/transacao',middlewares, fn)
+        servidor.post('/transacao', middleware, fn)
+        servidor.post('/transacao/:id', middleware, fn)
     }
 }

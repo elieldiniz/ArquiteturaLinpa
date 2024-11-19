@@ -2,7 +2,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 import express from "express";
-import ColecaoUsuarioDB from "./adaptadores/db/knex/ColecaoUsuarioDB";
+import ColecaoUsuarioDB from "./adaptadores/db/ColecaoUsuarioDB";
 import RegistrarUsuario from "./core/usuario/RegistrarUsuario";
 import LoginUsuario from "./core/usuario/LoginUsuario";
 import LoginUsuarioController from "./controller/LoginUsuarioController";
@@ -12,6 +12,7 @@ import RegistrarUsuarioController from "./controller/RegistarrUsuarioController"
 import SalvarTrasacao from './core/transacao/SalvarTrasacao';
 import SalvarTrasacaoController from './controller/SalvarTrasacaoController';
 import UsuarioMiddleware from './controller/UsuarioMiddleware';
+import ColecaoTransacaoDb from './adaptadores/db/ColecaoTransacaoDb';
 
 const app = express();
 app.use(express.json())
@@ -43,5 +44,7 @@ new LoginUsuarioController(app, loginUsuario)
 //---------------------- Rotas autencticadas
 const usuarioMiddleware = UsuarioMiddleware(colecaoUsuario,provedorToken)
 
-const salvarTransacao = new SalvarTrasacao()
+
+const colecaoTransacao = new ColecaoTransacaoDb()
+const salvarTransacao = new SalvarTrasacao(colecaoTransacao)
 new SalvarTrasacaoController(app, salvarTransacao,usuarioMiddleware)

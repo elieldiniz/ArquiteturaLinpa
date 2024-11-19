@@ -1,15 +1,27 @@
 import CasoDeUso from "../shared/CasoDeUso";
+import Id from "../shared/id";
+import Usuario from "../usuario/Usuario";
+import ColecaoTransacao from "./ColecaoTransacao";
 import Transacao from "./Transacao";
 
-export default class SalvarTrasacao implements CasoDeUso<void, Transacao>{
-    async executar(dto: void): Promise<Transacao>{
+export type Entrada = {transacao: Transacao, id: string, usuario: Usuario}
 
-        return {
-            id: '123', 
-            descricao: 'Saldo',
-            valor: '100',
-            vencimento: new Date(),
-            idUsuario: '123'
-        };
+export default class SalvarTrasacao implements CasoDeUso<Entrada, void >{
+
+    constructor(private readonly colecao: ColecaoTransacao){}
+
+    async executar(dto: Entrada): Promise<void>{
+
+    if(dto.transacao.idUsuario !== dto.usuario.id){
+            throw new Error('Usuário não confere')
+    }
+
+    const transacao = {...dto.transacao, id: dto.id ?? Id.gerar(),idUsuario: dto.usuario.id }
+
+    dto.id
+        ? await this.colecao.atualizar(transacao)
+        : await this.colecao.adicionar(transacao)
+       
+       
     }
 }

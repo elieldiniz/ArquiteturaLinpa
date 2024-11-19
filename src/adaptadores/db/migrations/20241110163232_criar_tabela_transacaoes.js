@@ -14,6 +14,8 @@ exports.up = function(knex) {
             table.decimal('valor').notNullable();
             table.date('vencimento').notNullable().defaultTo(knex.fn.now());
             table.uuid('usuario_id').references('id').inTable('usuarios').notNullable();
+            //table.timestamp(true,true),
+            //table.timestamp('deleted_at').nullable()
         });
     });
 };

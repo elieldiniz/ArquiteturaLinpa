@@ -1,7 +1,7 @@
 export default interface Transacao{
-    id: string
+    id?: string
     descricao: string
-    valor: string
+    valor: number
     vencimento: Date
     idUsuario: string
 }
