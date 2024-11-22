@@ -13,6 +13,8 @@ import SalvarTrasacao from './core/transacao/SalvarTrasacao';
 import SalvarTrasacaoController from './controller/SalvarTrasacaoController';
 import UsuarioMiddleware from './controller/UsuarioMiddleware';
 import ColecaoTransacaoDb from './adaptadores/db/ColecaoTransacaoDb';
+import ExtratoMensal from './core/transacao/ExtratoMensal';
+import ExtratoMensalController from './controller/ExtratoMensalController';
 
 const app = express();
 app.use(express.json())
@@ -46,5 +48,12 @@ const usuarioMiddleware = UsuarioMiddleware(colecaoUsuario,provedorToken)
 
 
 const colecaoTransacao = new ColecaoTransacaoDb()
+
+
+
 const salvarTransacao = new SalvarTrasacao(colecaoTransacao)
+const extratoMensal = new ExtratoMensal(colecaoTransacao)
+
+
+new ExtratoMensalController(app, extratoMensal,usuarioMiddleware) //
 new SalvarTrasacaoController(app, salvarTransacao,usuarioMiddleware)

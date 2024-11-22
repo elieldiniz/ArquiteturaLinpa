@@ -11,10 +11,12 @@ export default class ExtratoMensal implements CasoDeUso<Entrada, Saida> {
   constructor(private readonly colecao: ColecaoTransacao) {}
 
   async executar(dto: Entrada): Promise<Saida> {
-    const transacoes = await this.colecao.buscarPorMes(dto.usuario.id, dto.ano, dto.mes);
-
-
-
+    const transacoes = await this.colecao.buscarPorMes(
+      dto.usuario.id, 
+      dto.ano,
+      dto.mes
+    );
+    
     return {
       transacoe: transacoes, // Ajuste do nome da propriedade
       saldo: new Saldo(transacoes).dto, // Passar um array válido para o saldo
